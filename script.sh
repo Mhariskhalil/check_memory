@@ -4,19 +4,10 @@ if [ "$1" = "-w" ] && [ "$2" -gt "0" ] && [ "$3" = "-c" ] && [ "$4" -gt "0" ]; t
 
 memTotal_b=`free -b |grep Mem |awk '{print $2}'`
 memFree_b=`free -b |grep Mem |awk '{print $7}'`
-memBuffer_b=`free -b |grep Mem |awk '{print $6}'`
-memCache_b=`free -b |grep Mem |awk '{print $7}'`
-
-memTotal_m=`free -m |grep Mem |awk '{print $2}'`
-memFree_m=`free -m |grep Mem |awk '{print $4}'`
-memBuffer_m=`free -m |grep Mem |awk '{print $6}'`
-memCache_m=`free -m |grep Mem |awk '{print $7}'`
 
 memUsed_b=$(($memTotal_b-$memFree_b))
-memUsed_m=$(($memTotal_m-$memFree_m))
 
 multi=$((($memUsed_b*100)/$memTotal_b))
-#multi=$((memUsedPrc*100))
 
 if [ "$multi" -ge "$4" ]; then
 echo "Memory: CRITICAL Total: $multi%"
